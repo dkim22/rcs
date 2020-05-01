@@ -8,4 +8,13 @@ import { RegisterView } from "./ui/RegisterView";
 // controller => connector => view
 // 네이밍은 위에와 같이 지을 것임
 
-export const RegisterConnector = () => <RegisterView />;
+export class RegisterConnector extends React.PureComponent {
+  dummySubmit = (values: any) => {
+    console.log(values);
+    return null;
+  };
+
+  render() {
+    return <RegisterView submit={this.dummySubmit} />;
+  }
+}
