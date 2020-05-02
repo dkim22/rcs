@@ -24,7 +24,8 @@
     "react-scripts": "3.4.1",
     "typescript": "~3.7.2",
     "yup": "^0.28.5",
-    "@abb/common": "1.0.0"
+    "@abb/common": "1.0.0",
+    "@abb/controller": "1.0.0"
   },
   "scripts": {
     "start": "react-scripts start",

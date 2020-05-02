@@ -13,7 +13,7 @@ interface FormValues {
 }
 
 interface Props {
-  submit: (values: FormValues) => Promise<FormikErrors<FormValues>> | null;
+  submit: (values: FormValues) => Promise<FormikErrors<FormValues> | null>;
 }
 
 class C extends React.PureComponent<FormikProps<FormValues> & Props> {

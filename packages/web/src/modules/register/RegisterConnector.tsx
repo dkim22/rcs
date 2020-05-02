@@ -1,4 +1,6 @@
 import * as React from "react";
+import { RegisterController } from "@abb/controller";
+
 import { RegisterView } from "./ui/RegisterView";
 
 // container => view
@@ -9,12 +11,11 @@ import { RegisterView } from "./ui/RegisterView";
 // 네이밍은 위에와 같이 지을 것임
 
 export class RegisterConnector extends React.PureComponent {
-  dummySubmit = (values: any) => {
-    console.log(values);
-    return null;
-  };
-
   render() {
-    return <RegisterView submit={this.dummySubmit} />;
+    return (
+      <RegisterController>
+        {({ submit }) => <RegisterView submit={submit} />}
+      </RegisterController>
+    );
   }
 }
