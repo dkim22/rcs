@@ -2,6 +2,7 @@
 
 import * as yup from "yup";
 import * as bcrypt from "bcryptjs";
+import { registerPasswordValidation } from "@abb/common";
 
 import { ResolverMap } from "../../../types/graphql-utils";
 import { forgotPasswordLockAccount } from "../../../utils/forgotPasswordLockAccount";
@@ -9,7 +10,6 @@ import { createForgotPasswordLink } from "../../../utils/createForgotPasswordLin
 import { User } from "../../../entity/User";
 import { userNotFoundError, expiredKeyError } from "./errorMessages";
 import { forgotPasswordPrefix } from "../../../constants";
-import { registerPasswordValidation } from "../../../yupSchemas";
 import { formatYupError } from "../../../utils/formatYupError";
 
 // 20 minutes
@@ -25,7 +25,7 @@ export const resolvers: ResolverMap = {
       _,
       { email }: GQL.ISendForgotPasswordEmailOnMutationArguments,
       { redis }) => {
-      const user = await User.findOne({ where: { email }})
+      const user = await User.findOne({ where: { email } })
       if (!user) {
         return [
           {
@@ -39,13 +39,13 @@ export const resolvers: ResolverMap = {
       // TODO: Add frontend url
       await createForgotPasswordLink("", user.id, redis);
       // TODO: Send email with url
-    
+
       return true;
     },
     forgotPasswordChange: async (_, { newPassword, key }: GQL.IForgotPasswordChangeOnMutationArguments, { redis }) => {
-      
+
       const redisKey = `${forgotPasswordPrefix}${key}`;
-      
+
       const userId = await redis.get(redisKey);
       if (!userId) {
         return [
@@ -73,7 +73,7 @@ export const resolvers: ResolverMap = {
       );
 
       const deleteKeyPromise = redis.del(redisKey);
-      
+
       await Promise.all([updatePromise, deleteKeyPromise]);
 
       return null;
