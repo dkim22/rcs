@@ -6,3 +6,5 @@ temp/
 *.log
 dump.rdb
 .env
+# Local Netlify folder
+.netlify
