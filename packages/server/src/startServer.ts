@@ -23,7 +23,7 @@ export const startServer = async () => {
   // if (process.env.NODE_ENV === "test") {
   //   await redis.flushall();
   // }
-  
+
   const server = new GraphQLServer({
     schema: genSchema(),
     context: ({ request }) => ({
@@ -65,13 +65,13 @@ export const startServer = async () => {
   const cors = {
     credentials: true,
     origin: process.env.NODE_ENV === "test"
-    ? "*"
-    : process.env.FRONTEND_HOST as string
+      ? "*"
+      : process.env.FRONTEND_HOST as string
   };
 
   server.express.get("/confirm/:id", confirmEmail);
 
-  const connection = process.env.NODE_ENV === "test" 
+  const connection = process.env.NODE_ENV === "test"
     ? await createTestConn(true)
     : await createTypeormConn();
 
@@ -85,7 +85,7 @@ export const startServer = async () => {
       },
       async (_, __, profile, cb) => {
         const { id, emails } = profile;
-        
+
         const query = connection
           .getRepository(User)
           .createQueryBuilder("user")
@@ -116,7 +116,7 @@ export const startServer = async () => {
           // login
         }
 
-        return cb(null, { id: user.id});
+        return cb(null, { id: user.id });
       }
     )
   );
@@ -126,7 +126,7 @@ export const startServer = async () => {
   server.express.get("/auth/twitter", passport.authenticate("twitter"));
 
   server.express.get(
-    "/auth/twitter/callback", 
+    "/auth/twitter/callback",
     passport.authenticate("twitter", { session: false }),
     (req, res) => {
       // Successful authentication, redirect home.
@@ -136,11 +136,12 @@ export const startServer = async () => {
     }
   );
 
+  const port = process.env.PORT || 4000
   const app = await server.start({
     cors,
-    port: process.env.NODE_ENV === "test" ? 0 : 4000,
+    port: process.env.NODE_ENV === "test" ? 0 : port,
   });
-  console.log("Server is running on localhost:4000");
+  console.log(`Server is running on localhost${port}`);
 
   return app;
 };
