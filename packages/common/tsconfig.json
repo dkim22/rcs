@@ -22,6 +22,7 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "allowSyntheticDefaultImports": false,
+    "skipLibCheck": true,
   },
   "exclude": [
     "node_modules"

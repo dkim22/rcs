@@ -2,11 +2,9 @@ import * as React from "react";
 import { Form, Button } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { withFormik, FormikErrors, FormikProps, Field } from "formik";
-import { validUserSchema } from "@abb/common";
+import { loginSchema } from "@abb/common";
 import { Link } from "react-router-dom";
 import { InputField } from "../../shared/inputField";
-// formik hooks 사용시 코드 많이 줄일 수 있음
-// HOC가 사용하기 복잡함
 
 interface FormValues {
   email: string;
@@ -53,11 +51,11 @@ class C extends React.PureComponent<FormikProps<FormValues> & Props> {
               htmlType="submit"
               className="login-form-button"
             >
-              Register
+              Login
             </Button>
           </Form.Item>
           <Form.Item>
-            Or <Link to="/login">login now!</Link>
+            Or <Link to="/register">register</Link>
           </Form.Item>
         </Form>
       </div>
@@ -65,8 +63,11 @@ class C extends React.PureComponent<FormikProps<FormValues> & Props> {
   }
 }
 
-export const RegisterView = withFormik<Props, FormValues>({
-  validationSchema: validUserSchema,
+export const LoginView = withFormik<Props, FormValues>({
+  validationSchema: loginSchema,
+  // FIXME: 실시간 벨리데이션이 아니라 Login 버튼을 눌렀을 때만 에러를 표시하게 했지만 서버에러를 어떻게 표시하냐에 따라서 변경 할 수도 있음
+  validateOnChange: false,
+  validateOnBlur: false,
   mapPropsToValues: () => ({ email: "", password: "" }),
   handleSubmit: async (values, { props, setErrors }) => {
     const errors = await props.submit(values);
