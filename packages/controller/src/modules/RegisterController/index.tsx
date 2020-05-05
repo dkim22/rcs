@@ -1,7 +1,7 @@
 import * as React from "react";
 import { gql } from "@apollo/client";
 import { graphql, ChildMutateProps } from "@apollo/react-hoc";
-import { RegisterMutation, RegisterMutationVariables } from "./__generated__/RegisterMutation";
+import { RegisterMutation, RegisterMutationVariables } from "../../schemaTypes";
 
 interface Props {
   children: (data: { submit: (values: RegisterMutationVariables) => Promise<null> }) => JSX.Element | null;
