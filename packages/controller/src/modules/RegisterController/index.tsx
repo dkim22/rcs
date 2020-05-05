@@ -14,6 +14,7 @@ class C extends React.PureComponent<ChildMutateProps<Props, RegisterMutation, Re
       variables: values
     });
     console.log('response : ', response);
+    // TODO: server error 렌더링 구현
     return null;
   };
 

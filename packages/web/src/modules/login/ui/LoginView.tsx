@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Form, Button } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
-import { withFormik, FormikErrors, FormikProps, Field } from "formik";
+import { withFormik, FormikProps, Field } from "formik";
 import { loginSchema } from "@abb/common";
 import { Link } from "react-router-dom";
 import { InputField } from "../../shared/inputField";
@@ -12,7 +12,7 @@ interface FormValues {
 }
 
 interface Props {
-  submit: (values: FormValues) => Promise<FormikErrors<FormValues> | null>;
+  submit: (values: FormValues) => Promise<{ [key: string]: string } | null>;
 }
 
 class C extends React.PureComponent<FormikProps<FormValues> & Props> {

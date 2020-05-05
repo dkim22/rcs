@@ -2,18 +2,27 @@ import * as React from "react";
 import { gql } from "@apollo/client";
 import { graphql, ChildMutateProps } from "@apollo/react-hoc";
 import { LoginMutation, LoginMutationVariables } from "../../schemaTypes";
+import { normalizeErrors } from "../../utils/normalizeErrors";
 
 interface Props {
-  children: (data: { submit: (values: LoginMutationVariables) => Promise<null> }) => JSX.Element | null;
+  children: (data: { submit: (values: LoginMutationVariables) => Promise<{ [key: string]: string } | null> }) => JSX.Element | null;
 }
 
 class C extends React.PureComponent<ChildMutateProps<Props, LoginMutation, LoginMutationVariables>> {
   submit = async (values: LoginMutationVariables) => {
     console.log(values);
-    const response = await this.props.mutate({
+    const { data } = await this.props.mutate({
       variables: values
     });
-    console.log('response : ', response);
+    console.log('response : ', data);
+
+    if (data?.login) {
+      // show server errors
+      // [{ path: "email", message: "invalid ..." }]
+      // { email: "invalid ..."}
+
+      return normalizeErrors(data.login);
+    }
     return null;
   };
 
