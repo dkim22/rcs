@@ -3,10 +3,11 @@ import { gql } from "@apollo/client";
 import { graphql, ChildMutateProps } from "@apollo/react-hoc";
 import { LoginMutation, LoginMutationVariables } from "../../schemaTypes";
 import { normalizeErrors } from "../../utils/normalizeErrors";
+import { NormalizedErrorMap } from "../../types/NormalizedErrorMap";
 
 interface Props {
   onSessionId?: (sessionId: string) => void;
-  children: (data: { submit: (values: LoginMutationVariables) => Promise<{ [key: string]: string } | null> }) => JSX.Element | null;
+  children: (data: { submit: (values: LoginMutationVariables) => Promise<NormalizedErrorMap | null> }) => JSX.Element | null;
 }
 
 class C extends React.PureComponent<ChildMutateProps<Props, LoginMutation, LoginMutationVariables>> {

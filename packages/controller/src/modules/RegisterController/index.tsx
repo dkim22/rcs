@@ -2,19 +2,25 @@ import * as React from "react";
 import { gql } from "@apollo/client";
 import { graphql, ChildMutateProps } from "@apollo/react-hoc";
 import { RegisterMutation, RegisterMutationVariables } from "../../schemaTypes";
+import { normalizeErrors } from "../../utils/normalizeErrors";
+import { NormalizedErrorMap } from "../../types/NormalizedErrorMap";
 
 interface Props {
-  children: (data: { submit: (values: RegisterMutationVariables) => Promise<null> }) => JSX.Element | null;
+  children: (data: { submit: (values: RegisterMutationVariables) => Promise<NormalizedErrorMap | null> }) => JSX.Element | null;
 }
 
 class C extends React.PureComponent<ChildMutateProps<Props, RegisterMutation, RegisterMutationVariables>> {
   submit = async (values: RegisterMutationVariables) => {
     console.log(values);
-    const response = await this.props.mutate({
+    const { data } = await this.props.mutate({
       variables: values
     });
-    console.log('response : ', response);
-    // TODO: server error 렌더링 구현
+    console.log('response : ', data);
+
+    if (data?.register) {
+      return normalizeErrors(data.register);
+    }
+
     return null;
   };
 

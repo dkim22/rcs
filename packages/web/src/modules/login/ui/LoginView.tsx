@@ -4,6 +4,7 @@ import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { withFormik, FormikProps, Field } from "formik";
 import { loginSchema } from "@abb/common";
 import { Link } from "react-router-dom";
+import { NormalizedErrorMap } from "@abb/controller";
 import { InputField } from "../../shared/inputField";
 
 interface FormValues {
@@ -12,7 +13,7 @@ interface FormValues {
 }
 
 interface Props {
-  submit: (values: FormValues) => Promise<{ [key: string]: string } | null>;
+  submit: (values: FormValues) => Promise<NormalizedErrorMap | null>;
 }
 
 class C extends React.PureComponent<FormikProps<FormValues> & Props> {
