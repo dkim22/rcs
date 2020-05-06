@@ -43,16 +43,14 @@ class C extends React.PureComponent<FormikProps<FormValues> & Props> {
             autoComplete="on"
           />
           <Form.Item>
-            <a className="login-form-forgot" href="">
-              Forgot password
-            </a>
+            <Link to="/forgot-password">Forgot password</Link>
           </Form.Item>
 
           <Form.Item>
             <Button
               type="primary"
               htmlType="submit"
-              className="login-form-button"
+              className="abb-register__button"
             >
               Register
             </Button>
