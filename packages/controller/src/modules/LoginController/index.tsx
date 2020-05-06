@@ -5,6 +5,7 @@ import { LoginMutation, LoginMutationVariables } from "../../schemaTypes";
 import { normalizeErrors } from "../../utils/normalizeErrors";
 
 interface Props {
+  onSessionId?: (sessionId: string) => void;
   children: (data: { submit: (values: LoginMutationVariables) => Promise<{ [key: string]: string } | null> }) => JSX.Element | null;
 }
 
@@ -16,13 +17,19 @@ class C extends React.PureComponent<ChildMutateProps<Props, LoginMutation, Login
     });
     console.log('response : ', data);
 
-    if (data?.login) {
+    if (data?.login?.errors) {
       // show server errors
       // [{ path: "email", message: "invalid ..." }]
       // { email: "invalid ..."}
 
-      return normalizeErrors(data.login);
+      return normalizeErrors(data.login.errors);
     }
+
+    // 앱에는 쿠키가 없으니 세션 아이디를 저장하기 위하여
+    if (this.props.onSessionId && data?.login?.sessionId) {
+      this.props.onSessionId(data.login.sessionId);
+    }
+
     return null;
   };
 
@@ -36,8 +43,11 @@ class C extends React.PureComponent<ChildMutateProps<Props, LoginMutation, Login
 const loginMutation = gql`
   mutation LoginMutation($email: String!, $password: String!) {
     login(email: $email, password: $password) {
-      path
-      message
+      errors {
+        path
+        message
+      }
+      sessionId
     }
   }
 `;
