@@ -1,3 +1,9 @@
+export interface sendForgotPasswordEmailMutation {
+    sendForgotPasswordEmail: boolean | null;
+}
+export interface sendForgotPasswordEmailMutationVariables {
+    email: string;
+}
 export interface LoginMutation_login_errors {
     __typename: "Error";
     path: string;

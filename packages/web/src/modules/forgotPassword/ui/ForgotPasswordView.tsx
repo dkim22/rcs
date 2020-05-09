@@ -19,7 +19,7 @@ class C extends React.PureComponent<FormikProps<FormValues> & Props> {
     return (
       <div style={{ margin: "0 auto", maxWidth: 400 }}>
         <Form
-          name="register"
+          name="forgot-password"
           className="abb-forgot-password__form"
           onFinish={handleSubmit as any}
         >

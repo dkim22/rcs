@@ -22,7 +22,7 @@ class C extends React.PureComponent<FormikProps<FormValues> & Props> {
     return (
       <div style={{ margin: "0 auto", maxWidth: 400 }}>
         <Form
-          name="register"
+          name="login"
           className="abb-login__form"
           onFinish={handleSubmit as any}
         >

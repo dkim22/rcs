@@ -26,7 +26,7 @@
 // Use at least Nodemailer v4.1.0
 import * as nodemailer from "nodemailer";
 
-export const sendEmail = async (recipients: string, url: string) => {
+export const sendEmail = async (recipients: string, url: string, linkText: string) => {
   const transporter = nodemailer.createTransport({
     host: 'smtp.ethereal.email',
     port: 587,
@@ -45,7 +45,7 @@ export const sendEmail = async (recipients: string, url: string) => {
     html: `<html>
       <body>
       <p>Testing SparkPost - the world's most awesomest email service!</p>
-      <a href="${url}">confirm email</a>
+      <a href="${url}">${linkText}</a>
       </body>
       </html>`,
   };
