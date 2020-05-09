@@ -1,8 +1,7 @@
 /// <reference path="../../../types/schema.d.ts"/>
 
-import * as yup from "yup";
 import * as bcrypt from "bcryptjs";
-import { registerPasswordValidation } from "@abb/common";
+import { changePasswordSchema } from "@abb/common";
 
 import { ResolverMap } from "../../../types/graphql-utils";
 // import { forgotPasswordLockAccount } from "../../../utils/forgotPasswordLockAccount";
@@ -16,9 +15,9 @@ import { sendEmail } from "../../../utils/sendEmail";
 // 20 minutes
 // lock account
 
-const schema = yup.object().shape({
-  newPassword: registerPasswordValidation,
-});
+// const schema = yup.object().shape({
+//   newPassword: registerPasswordValidation,
+// });
 
 export const resolvers: ResolverMap = {
   Mutation: {
@@ -28,6 +27,7 @@ export const resolvers: ResolverMap = {
       { redis }) => {
       const user = await User.findOne({ where: { email } })
       if (!user) {
+        // TODO: 존재하지 않는 유저 바꿀 필요 있음
         return { ok: true };
         // return [
         //   {
@@ -52,14 +52,14 @@ export const resolvers: ResolverMap = {
       if (!userId) {
         return [
           {
-            path: "key",
+            path: "newPassword",
             message: expiredKeyError,
           }
         ];
       }
 
       try {
-        await schema.validate({ newPassword }, { abortEarly: false });
+        await changePasswordSchema.validate({ newPassword }, { abortEarly: false });
       } catch (err) {
         return formatYupError(err);
       }

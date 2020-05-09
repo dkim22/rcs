@@ -4,6 +4,30 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL mutation operation: forgotPasswordChangeMutation
+// ====================================================
+
+export interface forgotPasswordChangeMutation_forgotPasswordChange {
+  __typename: "Error";
+  path: string;
+  message: string;
+}
+
+export interface forgotPasswordChangeMutation {
+  forgotPasswordChange: forgotPasswordChangeMutation_forgotPasswordChange[] | null;
+}
+
+export interface forgotPasswordChangeMutationVariables {
+  newPassword: string;
+  key: string;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL mutation operation: sendForgotPasswordEmailMutation
 // ====================================================
 
