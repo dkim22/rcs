@@ -23,7 +23,7 @@ export class ChangePasswordConnector extends React.PureComponent<
 
     return (
       <ChangePasswordController>
-        {({ submit }) => <ChangePasswordView key={key} onFinish={this.onFinish} submit={submit} />}
+        {({ submit }) => <ChangePasswordView token={key} onFinish={this.onFinish} submit={submit} />}
       </ChangePasswordController>
     );
   }
