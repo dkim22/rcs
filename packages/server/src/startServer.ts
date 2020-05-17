@@ -7,6 +7,7 @@ import * as rateLimit from "express-rate-limit";
 import * as RateLimitRedisStore from "rate-limit-redis";
 import * as passport from "passport";
 import { Strategy } from "passport-twitter";
+import { Connection } from "typeorm";
 
 import { createTypeormConn } from "./utils/createTypeormConn";
 import { redis } from "./redis";
@@ -71,9 +72,13 @@ export const startServer = async () => {
 
   server.express.get("/confirm/:id", confirmEmail);
 
-  const connection = process.env.NODE_ENV === "test"
-    ? await createTestConn(true)
-    : await createTypeormConn();
+  let connection: Connection;
+  if (process.env.NODE_ENV === "test") {
+    connection = await createTestConn(true)
+  } else {
+    connection = await createTypeormConn();
+    await connection.runMigrations();
+  }
 
   passport.use(
     new Strategy(

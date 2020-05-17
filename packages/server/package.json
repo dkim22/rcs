@@ -68,7 +68,8 @@
     "test": "cross-env NODE_ENV=test jest --forceExit",
     "build": "rimraf ./dist && tsc && copyfiles -u 1 src/**/*.graphql dist",
     "lint": "tslint src/**/*.ts",
-    "gen-schema-types": "ts-node src/scripts/createTypes.ts"
+    "gen-schema-types": "ts-node src/scripts/createTypes.ts",
+    "migration:generate": "ts-node ./node_modules/.bin/typeorm migration:generate -n ListingUser -c development"
   },
   "jest": {
     "rootDir": "./src",
