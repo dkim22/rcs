@@ -8,6 +8,7 @@ import * as RateLimitRedisStore from "rate-limit-redis";
 import * as passport from "passport";
 import { Strategy } from "passport-twitter";
 import { Connection } from "typeorm";
+import { applyMiddleware } from "graphql-middleware";
 
 import { createTypeormConn } from "./utils/createTypeormConn";
 import { redis } from "./redis";
@@ -16,6 +17,8 @@ import { genSchema } from "./utils/genSchema";
 import { redisSessionPrefix } from "./constants";
 import { User } from "./entity/User";
 import { createTestConn } from "./testUtils/createTestConn";
+import { middleware } from "./middleware";
+// import { middlewareShield } from "./shield";
 
 const RedisStore = connectRedis(session);
 
@@ -25,8 +28,11 @@ export const startServer = async () => {
   //   await redis.flushall();
   // }
 
+  const schema = genSchema();
+  applyMiddleware(schema, middleware);
+
   const server = new GraphQLServer({
-    schema: genSchema(),
+    schema,
     context: ({ request }) => ({
       redis,
       url: request.protocol + "://" + request.get("host"),
