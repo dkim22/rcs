@@ -1,3 +1,10 @@
+export interface MeQuery_me {
+    __typename: "User";
+    email: string;
+}
+export interface MeQuery {
+    me: MeQuery_me | null;
+}
 export interface forgotPasswordChangeMutation_forgotPasswordChange {
     __typename: "Error";
     path: string;
