@@ -24,9 +24,9 @@ const RedisStore = connectRedis(session);
 
 export const startServer = async () => {
   // TODO: 테스트 할 때 레디스 초기화 필요
-  // if (process.env.NODE_ENV === "test") {
-  //   await redis.flushall();
-  // }
+  if (process.env.NODE_ENV === "test") {
+    redis.flushall();
+  }
 
   const schema = genSchema();
   applyMiddleware(schema, middleware);
@@ -80,7 +80,7 @@ export const startServer = async () => {
 
   let connection: Connection;
   if (process.env.NODE_ENV === "test") {
-    connection = await createTestConn(true)
+    connection = await createTestConn(true);
   } else {
     connection = await createTypeormConn();
     await connection.runMigrations();
@@ -148,6 +148,7 @@ export const startServer = async () => {
   );
 
   const port = process.env.PORT || 4000
+  console.log(port)
   const app = await server.start({
     cors,
     port: process.env.NODE_ENV === "test" ? 0 : port,

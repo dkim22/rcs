@@ -30,7 +30,6 @@ export class TestClient {
         `
       }
     });
-    
   }
 
   async logout() {
@@ -85,8 +84,11 @@ export class TestClient {
         query: `
           mutation {
             login(email: "${email}", password: "${password}") {
-              path
-              message
+              errors {
+                path
+                message
+              }
+              sessionId
             }
           }
         `
