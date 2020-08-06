@@ -4,7 +4,7 @@ import { LockOutlined } from "@ant-design/icons";
 import { withFormik, FormikProps, Field } from "formik";
 import { NormalizedErrorMap, forgotPasswordChangeMutationVariables } from "@abb/controller";
 import { changePasswordSchema } from "@abb/common";
-import { InputField } from "../../shared/inputField";
+import { InputField } from "../../shared/InputField";
 
 interface FormValues {
   newPassword: string;

@@ -35,6 +35,7 @@ export class CreateListingConnector extends React.PureComponent<{}, State> {
   nextPage = () => this.setState(state => ({ page: state.page + 1 }));
 
   render() {
+    console.log(this.state.page, pages.length - 1);
     return (
       <div style={{ margin: "0 auto", maxWidth: 400 }}>
         <Formik<FormValues>
@@ -51,19 +52,20 @@ export class CreateListingConnector extends React.PureComponent<{}, State> {
           }}
           onSubmit={this.submit}
         >
-          {() => (
+          {(props) => (
             <Form
               name="login"
               className="abb-create-listing__form"
-              onFinish={this.submit}
+              onFinish={props.handleSubmit as any}
             >
               {pages[this.state.page]}
               <Form.Item>
+                <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
                 {this.state.page === pages.length - 1 ?
                   <Button
                     type="primary"
-                    htmlType="submit"
-                    className="abb-create-listing__button"
+                    htmlType="submit" 
+                    className="abb-create-listing__submit-button"
                   >
                     Create listing
                   </Button>
@@ -76,6 +78,7 @@ export class CreateListingConnector extends React.PureComponent<{}, State> {
                     Next page
                   </Button>
                 }
+                </div>
               </Form.Item>
             </Form>
           )}

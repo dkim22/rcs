@@ -5,7 +5,7 @@ import { withFormik, FormikProps, Field } from "formik";
 import { validUserSchema } from "@abb/common";
 import { Link } from "react-router-dom";
 import { NormalizedErrorMap } from "@abb/controller";
-import { InputField } from "../../shared/inputField";
+import { InputField } from "../../shared/InputField";
 // formik hooks 사용시 코드 많이 줄일 수 있음
 // HOC가 사용하기 복잡함
 

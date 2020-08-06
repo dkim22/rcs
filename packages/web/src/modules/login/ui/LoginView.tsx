@@ -5,7 +5,7 @@ import { withFormik, FormikProps, Field } from "formik";
 import { loginSchema } from "@abb/common";
 import { Link } from "react-router-dom";
 import { NormalizedErrorMap } from "@abb/controller";
-import { InputField } from "../../shared/inputField";
+import { InputField } from "../../shared/InputField";
 
 interface FormValues {
   email: string;

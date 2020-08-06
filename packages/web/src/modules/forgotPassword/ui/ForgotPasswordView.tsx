@@ -3,7 +3,7 @@ import { Form, Button } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { withFormik, FormikProps, Field } from "formik";
 import { NormalizedErrorMap } from "@abb/controller";
-import { InputField } from "../../shared/inputField";
+import { InputField } from "../../shared/InputField";
 
 interface FormValues {
   email: string;
