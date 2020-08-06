@@ -31,8 +31,8 @@ export const sendEmail = async (recipients: string, url: string, linkText: strin
     host: 'smtp.ethereal.email',
     port: 587,
     auth: {
-      user: 'corine41@ethereal.email',
-      pass: '9rHN8Jn5RdBywfPYGf'
+      user: 'jazmyn.orn@ethereal.email',
+      pass: 'h3PzKCKbCUrrZWMu6h'
     }
   });
 
