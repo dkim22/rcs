@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Form, Button } from "antd";
-import { Formik } from "formik";
+import { Formik, FormikHelpers } from "formik";
+import { withCreateListing, NewPropsCreateListing } from "@abb/controller";
 import { Page1 } from "./ui/Page1";
 import { Page2 } from "./ui/Page2";
 import { Page3 } from "./ui/Page3";
@@ -23,19 +24,19 @@ interface State {
 
 const pages = [<Page1 />, <Page2 />, <Page3 />];
 
-export class CreateListingConnector extends React.PureComponent<{}, State> {
+class C extends React.PureComponent<{} & NewPropsCreateListing, State> {
   state = {
     page: 0
   }
 
-  submit = (values: any) => {
-    console.log("values: ", values);
+  submit = async (values: FormValues, { setSubmitting }: FormikHelpers<FormValues>) => {
+    await this.props.createListing(values);
+    setSubmitting(false);
   }
 
   nextPage = () => this.setState(state => ({ page: state.page + 1 }));
 
   render() {
-    console.log(this.state.page, pages.length - 1);
     return (
       <div style={{ margin: "0 auto", maxWidth: 400 }}>
         <Formik<FormValues>
@@ -62,13 +63,16 @@ export class CreateListingConnector extends React.PureComponent<{}, State> {
               <Form.Item>
                 <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
                 {this.state.page === pages.length - 1 ?
-                  <Button
-                    type="primary"
-                    htmlType="submit" 
-                    className="abb-create-listing__submit-button"
-                  >
-                    Create listing
-                  </Button>
+                  <div>
+                    <Button
+                      type="primary"
+                      htmlType="submit" 
+                      className="abb-create-listing__submit-button"
+                      disabled={props.isSubmitting}
+                    >
+                      Create listing
+                    </Button>
+                  </div>
                   :
                   <Button
                     type="primary"
@@ -87,3 +91,5 @@ export class CreateListingConnector extends React.PureComponent<{}, State> {
     );
   }
 }
+
+export const CreateListingConnector = withCreateListing(C);
