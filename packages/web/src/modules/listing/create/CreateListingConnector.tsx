@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Form, Button } from "antd";
 import { Formik, FormikHelpers } from "formik";
-import { withCreateListing, NewPropsCreateListing } from "@abb/controller";
+import { withCreateListing, WithCreateListing } from "@abb/controller";
 import { Page1 } from "./ui/Page1";
 import { Page2 } from "./ui/Page2";
 import { Page3 } from "./ui/Page3";
@@ -24,7 +24,7 @@ interface State {
 
 const pages = [<Page1 />, <Page2 />, <Page3 />];
 
-class C extends React.PureComponent<{} & NewPropsCreateListing, State> {
+class C extends React.PureComponent<{} & WithCreateListing, State> {
   state = {
     page: 0
   }
