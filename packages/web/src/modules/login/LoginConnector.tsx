@@ -6,7 +6,12 @@ import { LoginView } from "./ui/LoginView";
 
 export class LoginConnector extends React.PureComponent<RouteComponentProps<{}>> {
   onFinish = () => {
-    this.props.history.push("/");
+    const { history, location: { state }}: any = this.props;
+    if (state?.next) {
+      return history.push(state.next);
+    }
+    
+    history.push("/");
   }
 
   render() {
