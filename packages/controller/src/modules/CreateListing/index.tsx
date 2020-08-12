@@ -4,6 +4,7 @@ import { graphql } from "@apollo/react-hoc";
 
 const createListingMutation = gql`
   mutation CreateListingMutation(
+    $picture: Upload
     $name: String!
     $category: String!
     $description: String!
@@ -16,6 +17,7 @@ const createListingMutation = gql`
   ) {
     createListing(
       input: {
+        picture: $picture
         name: $name
         category: $category
         description: $description

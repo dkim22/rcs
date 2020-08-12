@@ -2,11 +2,14 @@ import * as React from "react";
 import { Form, Button } from "antd";
 import { Formik, FormikHelpers } from "formik";
 import { withCreateListing, WithCreateListing } from "@abb/controller";
+import ImageFile from "react-dropzone";
+
 import { Page1 } from "./ui/Page1";
 import { Page2 } from "./ui/Page2";
 import { Page3 } from "./ui/Page3";
 
 interface FormValues {
+  picture: typeof ImageFile | null;
   name: string;
   category: string;
   description: string;
@@ -41,6 +44,7 @@ class C extends React.PureComponent<{} & WithCreateListing, State> {
       <div style={{ margin: "0 auto", maxWidth: 400 }}>
         <Formik<FormValues>
           initialValues={{
+            picture: null,
             name: "",
             category: "",
             description: "",
