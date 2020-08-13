@@ -1,6 +1,6 @@
 type Listing {
   id: ID!
-    name: String!
+  name: String!
   category: String!
   description: String!
   price: Int!

@@ -9,6 +9,7 @@ import * as passport from "passport";
 import { Strategy } from "passport-twitter";
 import { Connection } from "typeorm";
 import { applyMiddleware } from "graphql-middleware";
+import * as express from "express";
 
 import { createTypeormConn } from "./utils/createTypeormConn";
 import { redis } from "./redis";
@@ -68,6 +69,8 @@ export const startServer = async () => {
       }
     })
   );
+
+  server.express.use("/images", express.static("images"));
 
   const cors = {
     credentials: true,
