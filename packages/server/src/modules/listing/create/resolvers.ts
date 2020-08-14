@@ -6,8 +6,9 @@ import { Listing } from "../../../entity/Listing";
 // import { isAuthenticated } from "../../shared/isAuthenticated";
 
 // shortid-house.png
-const storeUpload = async ({ stream }: any): Promise<any> => {
-  const id = shortid.generate()
+const storeUpload = async (stream: any, mimetype: string): Promise<any> => {
+  const extension = mimetype.split('/')[1];
+  const id = `${shortid.generate()}.${extension}`;
   const path = `images/${id}`
 
   return new Promise((resolve, reject) =>
@@ -19,9 +20,9 @@ const storeUpload = async ({ stream }: any): Promise<any> => {
 }
 
 const processUpload = async (upload: any) => {
-  const { createReadStream, filename } = await upload
+  const { createReadStream, mimetype } = await upload
   const stream = createReadStream()
-  const { id } = await storeUpload({ stream, filename })
+  const { id } = await storeUpload(stream, mimetype);
   return id;
 }
 
