@@ -1,4 +1,4 @@
-import * as rp from "request-promise";
+import * as rp from 'request-promise';
 
 export class TestClient {
   url: string;
@@ -27,8 +27,8 @@ export class TestClient {
               message
             }
           }
-        `
-      }
+        `,
+      },
     });
   }
 
@@ -40,8 +40,8 @@ export class TestClient {
           mutation {
             logout
           }
-        `
-      }
+        `,
+      },
     });
   }
 
@@ -56,8 +56,8 @@ export class TestClient {
               message
             }
           }
-        `
-      }
+        `,
+      },
     });
   }
 
@@ -72,8 +72,8 @@ export class TestClient {
               email
             }
           }
-        `
-      }
+        `,
+      },
     });
   }
 
@@ -91,8 +91,8 @@ export class TestClient {
               sessionId
             }
           }
-        `
-      }
+        `,
+      },
     });
   }
 }

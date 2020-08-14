@@ -1,19 +1,23 @@
-import * as React from "react";
-import { gql } from "@apollo/client";
-import { graphql, ChildMutateProps } from "@apollo/react-hoc";
-import { RegisterMutation, RegisterMutationVariables } from "../../schemaTypes";
-import { normalizeErrors } from "../../utils/normalizeErrors";
-import { NormalizedErrorMap } from "../../types/NormalizedErrorMap";
+import * as React from 'react';
+import { gql } from '@apollo/client';
+import { graphql, ChildMutateProps } from '@apollo/react-hoc';
+import { RegisterMutation, RegisterMutationVariables } from '../../schemaTypes';
+import { normalizeErrors } from '../../utils/normalizeErrors';
+import { NormalizedErrorMap } from '../../types/NormalizedErrorMap';
 
 interface Props {
-  children: (data: { submit: (values: RegisterMutationVariables) => Promise<NormalizedErrorMap | null> }) => JSX.Element | null;
+  children: (data: {
+    submit: (values: RegisterMutationVariables) => Promise<NormalizedErrorMap | null>;
+  }) => JSX.Element | null;
 }
 
-class C extends React.PureComponent<ChildMutateProps<Props, RegisterMutation, RegisterMutationVariables>> {
+class C extends React.PureComponent<
+  ChildMutateProps<Props, RegisterMutation, RegisterMutationVariables>
+> {
   submit = async (values: RegisterMutationVariables) => {
     console.log(values);
     const { data } = await this.props.mutate({
-      variables: values
+      variables: values,
     });
     console.log('response : ', data);
 
@@ -25,9 +29,7 @@ class C extends React.PureComponent<ChildMutateProps<Props, RegisterMutation, Re
   };
 
   render() {
-    return (
-      this.props.children({ submit: this.submit })
-    )
+    return this.props.children({ submit: this.submit });
   }
 }
 
@@ -40,4 +42,6 @@ const registerMutation = gql`
   }
 `;
 
-export const RegisterController = graphql<Props, RegisterMutation, RegisterMutationVariables>(registerMutation)(C as any);
+export const RegisterController = graphql<Props, RegisterMutation, RegisterMutationVariables>(
+  registerMutation,
+)(C as any);

@@ -2,13 +2,27 @@
   "private": true,
   "scripts": {
     "build:server": "lerna run build --scope={@abb/common,@abb/server}",
-    "build:web": "lerna run build --scope={@abb/common,@abb/controller,@abb/web}"
+    "build:web": "lerna run build --scope={@abb/common,@abb/controller,@abb/web}",
+    "lint:ts": "yarn lint:ts:web && yarn lint:ts:app && yarn lint:ts:controller && yarn lint:ts:common && yarn lint:ts:server",
+    "lint:ts:web": "eslint --fix --ext .tsx,.ts ./packages/web/src",
+    "lint:ts:app": "eslint --fix --ext .tsx,.ts ./packages/app/src",
+    "lint:ts:controller": "eslint --fix --ext .tsx,.ts ./packages/controller/src",
+    "lint:ts:common": "eslint --fix --ext .tsx,.ts ./packages/common/src",
+    "lint:ts:server": "eslint --fix --ext .tsx,.ts ./packages/server/src"
   },
   "workspaces": [
     "packages/*"
   ],
   "name": "abb",
   "devDependencies": {
-    "lerna": "^3.20.2"
+    "@typescript-eslint/eslint-plugin": "^3.0.2",
+    "@typescript-eslint/parser": "^3.0.2",
+    "eslint": "^6.6.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.3",
+    "eslint-plugin-react": "^7.20.0",
+    "eslint-plugin-react-hooks": "^4.0.4",
+    "lerna": "^3.20.2",
+    "prettier": "^2.0.5"
   }
 }

@@ -1,15 +1,17 @@
-import * as React from "react";
-import { Form, Select } from "antd";
-import { FieldProps } from "formik";
+import * as React from 'react';
+import { Form, Select } from 'antd';
+import { FieldProps } from 'formik';
 
-export const TagField: React.SFC<
-  FieldProps<any> & { prefix: React.ReactNode, label?: string }
-> = ({ field: { onChange, onBlur: _, ...field }, form: { errors, setFieldValue }, label, ...props }) => {
+export const TagField: React.SFC<FieldProps<any> & { prefix: React.ReactNode; label?: string }> = ({
+  field: { ...field },
+  form: { errors, setFieldValue },
+  label,
+  ...props
+}) => {
   const errorMsg = errors[field.name];
 
-
   return (
-    <Form.Item label={label} help={errorMsg} validateStatus={errorMsg ? "error" : undefined}>
+    <Form.Item label={label} help={errorMsg} validateStatus={errorMsg ? 'error' : undefined}>
       <Select
         {...field}
         {...props}

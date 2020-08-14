@@ -1,16 +1,16 @@
 /// <reference path="../../../types/schema.d.ts"/>
 
-import * as bcrypt from "bcryptjs";
-import { changePasswordSchema } from "@abb/common";
+import * as bcrypt from 'bcryptjs';
+import { changePasswordSchema } from '@abb/common';
 
-import { ResolverMap } from "../../../types/graphql-utils";
+import { ResolverMap } from '../../../types/graphql-utils';
 // import { forgotPasswordLockAccount } from "../../../utils/forgotPasswordLockAccount";
-import { createForgotPasswordLink } from "../../../utils/createForgotPasswordLink";
-import { User } from "../../../entity/User";
-import { expiredKeyError } from "./errorMessages";
-import { forgotPasswordPrefix } from "../../../constants";
-import { formatYupError } from "../../../utils/formatYupError";
-import { sendEmail } from "../../../utils/sendEmail";
+import { createForgotPasswordLink } from '../../../utils/createForgotPasswordLink';
+import { User } from '../../../entity/User';
+import { expiredKeyError } from './errorMessages';
+import { forgotPasswordPrefix } from '../../../constants';
+import { formatYupError } from '../../../utils/formatYupError';
+import { sendEmail } from '../../../utils/sendEmail';
 
 // 20 minutes
 // lock account
@@ -24,8 +24,9 @@ export const resolvers: ResolverMap = {
     sendForgotPasswordEmail: async (
       _,
       { email }: GQL.ISendForgotPasswordEmailOnMutationArguments,
-      { redis }) => {
-      const user = await User.findOne({ where: { email } })
+      { redis },
+    ) => {
+      const user = await User.findOne({ where: { email } });
       if (!user) {
         // TODO: 존재하지 않는 유저 바꿀 필요 있음
         return { ok: true };
@@ -39,22 +40,29 @@ export const resolvers: ResolverMap = {
 
       // 이메일 잠그지는 않을 것임
       // await forgotPasswordLockAccount(user.id, redis);
-      const url = await createForgotPasswordLink(process.env.FRONTEND_HOST as string, user.id, redis);
-      await sendEmail(email, url, "reset password");
+      const url = await createForgotPasswordLink(
+        process.env.FRONTEND_HOST as string,
+        user.id,
+        redis,
+      );
+      await sendEmail(email, url, 'reset password');
 
       return true;
     },
-    forgotPasswordChange: async (_, { newPassword, key }: GQL.IForgotPasswordChangeOnMutationArguments, { redis }) => {
-
+    forgotPasswordChange: async (
+      _,
+      { newPassword, key }: GQL.IForgotPasswordChangeOnMutationArguments,
+      { redis },
+    ) => {
       const redisKey = `${forgotPasswordPrefix}${key}`;
 
       const userId = await redis.get(redisKey);
       if (!userId) {
         return [
           {
-            path: "newPassword",
+            path: 'newPassword',
             message: expiredKeyError,
-          }
+          },
         ];
       }
 
@@ -79,6 +87,6 @@ export const resolvers: ResolverMap = {
       await Promise.all([updatePromise, deleteKeyPromise]);
 
       return null;
-    }
+    },
   },
 };

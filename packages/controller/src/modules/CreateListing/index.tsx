@@ -1,6 +1,6 @@
-import { gql } from "@apollo/client";
-import { CreateListingMutationVariables, CreateListingMutation } from "../../schemaTypes";
-import { graphql } from "@apollo/react-hoc";
+import { gql } from '@apollo/client';
+import { CreateListingMutationVariables, CreateListingMutation } from '../../schemaTypes';
+import { graphql } from '@apollo/react-hoc';
 
 const createListingMutation = gql`
   mutation CreateListingMutation(
@@ -43,7 +43,7 @@ export const withCreateListing = graphql<
   WithCreateListing
 >(createListingMutation, {
   props: ({ mutate }) => ({
-    createListing: async variables => {
+    createListing: async (variables) => {
       if (!mutate) {
         return;
       }
@@ -51,6 +51,6 @@ export const withCreateListing = graphql<
       const response = await mutate({ variables });
 
       console.log(response);
-    }
-  })
-})
+    },
+  }),
+});

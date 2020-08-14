@@ -1,5 +1,5 @@
-import * as React from "react";
-import { RouteComponentProps } from "react-router-dom";
+import * as React from 'react';
+import { RouteComponentProps } from 'react-router-dom';
 
 interface LocationState {
   message: string;
@@ -7,7 +7,9 @@ interface LocationState {
 
 export class TextPage extends React.PureComponent<RouteComponentProps<{}, {}, LocationState>> {
   render() {
-    const { location: { state } } = this.props;
-    return <h2>{state?.message ? state.message : "hello"}</h2>;
+    const {
+      location: { state },
+    } = this.props;
+    return <h2>{state?.message ? state.message : 'hello'}</h2>;
   }
 }

@@ -1,7 +1,7 @@
 /// <reference path="../../../types/schema.d.ts"/>
 
-import { ResolverMap } from "../../../types/graphql-utils";
-import { removeAllUsersSessions } from "../../../utils/removeAllUsersSessions";
+import { ResolverMap } from '../../../types/graphql-utils';
+import { removeAllUsersSessions } from '../../../utils/removeAllUsersSessions';
 
 export const resolvers: ResolverMap = {
   Mutation: {
@@ -9,7 +9,7 @@ export const resolvers: ResolverMap = {
       const { userId } = session;
       if (userId) {
         removeAllUsersSessions(userId, redis);
-        session.destroy(err => {
+        session.destroy((err) => {
           if (err) {
             console.log(err);
           }
@@ -18,6 +18,6 @@ export const resolvers: ResolverMap = {
       }
 
       return false;
-    }
-  } 
+    },
+  },
 };

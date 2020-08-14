@@ -1,20 +1,24 @@
-import * as React from "react";
-import { gql } from "@apollo/client";
-import { graphql, ChildMutateProps } from "@apollo/react-hoc";
-import { LoginMutation, LoginMutationVariables } from "../../schemaTypes";
-import { normalizeErrors } from "../../utils/normalizeErrors";
-import { NormalizedErrorMap } from "../../types/NormalizedErrorMap";
+import * as React from 'react';
+import { gql } from '@apollo/client';
+import { graphql, ChildMutateProps } from '@apollo/react-hoc';
+import { LoginMutation, LoginMutationVariables } from '../../schemaTypes';
+import { normalizeErrors } from '../../utils/normalizeErrors';
+import { NormalizedErrorMap } from '../../types/NormalizedErrorMap';
 
 interface Props {
   onSessionId?: (sessionId: string) => void;
-  children: (data: { submit: (values: LoginMutationVariables) => Promise<NormalizedErrorMap | null> }) => JSX.Element | null;
+  children: (data: {
+    submit: (values: LoginMutationVariables) => Promise<NormalizedErrorMap | null>;
+  }) => JSX.Element | null;
 }
 
-class C extends React.PureComponent<ChildMutateProps<Props, LoginMutation, LoginMutationVariables>> {
+class C extends React.PureComponent<
+  ChildMutateProps<Props, LoginMutation, LoginMutationVariables>
+> {
   submit = async (values: LoginMutationVariables) => {
     console.log(values);
     const { data } = await this.props.mutate({
-      variables: values
+      variables: values,
     });
     console.log('response : ', data);
 
@@ -35,9 +39,7 @@ class C extends React.PureComponent<ChildMutateProps<Props, LoginMutation, Login
   };
 
   render() {
-    return (
-      this.props.children({ submit: this.submit })
-    )
+    return this.props.children({ submit: this.submit });
   }
 }
 
@@ -53,4 +55,6 @@ const loginMutation = gql`
   }
 `;
 
-export const LoginController = graphql<Props, LoginMutation, LoginMutationVariables>(loginMutation)(C as any);
+export const LoginController = graphql<Props, LoginMutation, LoginMutationVariables>(loginMutation)(
+  C as any,
+);

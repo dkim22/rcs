@@ -1,18 +1,21 @@
-import * as React from "react";
-import { LoginController } from "@abb/controller";
-import { RouteComponentProps } from "react-router-dom";
+import * as React from 'react';
+import { LoginController } from '@abb/controller';
+import { RouteComponentProps } from 'react-router-dom';
 
-import { LoginView } from "./ui/LoginView";
+import { LoginView } from './ui/LoginView';
 
 export class LoginConnector extends React.PureComponent<RouteComponentProps<{}>> {
   onFinish = () => {
-    const { history, location: { state }}: any = this.props;
+    const {
+      history,
+      location: { state },
+    }: any = this.props;
     if (state?.next) {
       return history.push(state.next);
     }
-    
-    history.push("/");
-  }
+
+    history.push('/');
+  };
 
   render() {
     return (

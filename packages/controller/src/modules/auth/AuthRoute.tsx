@@ -1,7 +1,7 @@
-import * as React from "react";
-import { RouteProps, RouteComponentProps, Route, Redirect } from "react-router";
-import { graphql, gql, ChildProps } from "@apollo/react-hoc";
-import { MeQuery } from "../../schemaTypes";
+import * as React from 'react';
+import { RouteProps, RouteComponentProps, Route, Redirect } from 'react-router';
+import { graphql, gql, ChildProps } from '@apollo/react-hoc';
+import { MeQuery } from '../../schemaTypes';
 
 type Props = RouteProps;
 
@@ -16,18 +16,20 @@ export class C extends React.PureComponent<ChildProps<Props, MeQuery>> {
 
     if (!data.me) {
       // user not logged in
-      return <Redirect to={{ pathname: "/login", state: { next: routeProps.location.pathname } }} />;
+      return (
+        <Redirect to={{ pathname: '/login', state: { next: routeProps.location.pathname } }} />
+      );
     }
 
     const Component = component as any;
 
     return <Component {...routeProps} />;
-  }
+  };
 
   render() {
-    const { data: _, component: __, ...rest } = this.props;
+    const { ...rest } = this.props;
 
-    return (<Route {...rest} render={this.renderRoute} />);
+    return <Route {...rest} render={this.renderRoute} />;
   }
 }
 

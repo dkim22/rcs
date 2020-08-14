@@ -22,9 +22,8 @@
 //   console.log(response);
 // };
 
-
 // Use at least Nodemailer v4.1.0
-import * as nodemailer from "nodemailer";
+import * as nodemailer from 'nodemailer';
 
 export const sendEmail = async (recipients: string, url: string, linkText: string) => {
   const transporter = nodemailer.createTransport({
@@ -32,8 +31,8 @@ export const sendEmail = async (recipients: string, url: string, linkText: strin
     port: 587,
     auth: {
       user: 'jazmyn.orn@ethereal.email',
-      pass: 'h3PzKCKbCUrrZWMu6h'
-    }
+      pass: 'h3PzKCKbCUrrZWMu6h',
+    },
   });
 
   // Message object

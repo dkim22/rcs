@@ -1,19 +1,26 @@
-import * as React from "react";
-import { FieldProps } from "formik";
-import { Input } from "react-native-elements";
+import * as React from 'react';
+import { FieldProps } from 'formik';
+import { Input } from 'react-native-elements';
 
 const errStyle = {
-  color: "red"
-}
+  color: 'red',
+};
 
 export class InputField extends React.Component<FieldProps<any>> {
   onChangeText = (text: string) => {
-    const { form: { setFieldValue }, field: { name } } = this.props;
+    const {
+      form: { setFieldValue },
+      field: { name },
+    } = this.props;
     setFieldValue(name, text);
   };
 
   render() {
-    const { field, form: { errors }, ...props } = this.props;
+    const {
+      field,
+      form: { errors },
+      ...props
+    } = this.props;
     const errorMsg = errors[field.name];
     return (
       <Input
@@ -25,4 +32,4 @@ export class InputField extends React.Component<FieldProps<any>> {
       />
     );
   }
-};
+}

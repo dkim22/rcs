@@ -6,9 +6,9 @@ interface Error {
 export const normalizeErrors = (errors: Error[]) => {
   const errMap: { [key: string]: string } = {};
 
-  errors.forEach(err => {
+  errors.forEach((err) => {
     errMap[err.path] = err.message;
   });
 
   return errMap;
-}
+};

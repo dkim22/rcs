@@ -1,15 +1,15 @@
-import { Connection } from "typeorm";
-import * as Redis from "ioredis";
-import * as faker from "faker";
-import { passwordNotLongEnough } from "@abb/common";
+import { Connection } from 'typeorm';
+import * as Redis from 'ioredis';
+import * as faker from 'faker';
+import { passwordNotLongEnough } from '@abb/common';
 
-import { User } from "../../../entity/User";
-import { TestClient } from "../../../utils/TestClient";
-import { createForgotPasswordLink } from "../../../utils/createForgotPasswordLink";
+import { User } from '../../../entity/User';
+import { TestClient } from '../../../utils/TestClient';
+import { createForgotPasswordLink } from '../../../utils/createForgotPasswordLink';
 // import { forgotPasswordLockAccount } from "../../../utils/forgotPasswordLockAccount";
 // import { forgotPasswordLockedError } from "../login/errorMessages";
-import { expiredKeyError } from "./errorMessages";
-import { createTestConn } from "../../../testUtils/createTestConn";
+import { expiredKeyError } from './errorMessages';
+import { createTestConn } from '../../../testUtils/createTestConn';
 
 let conn: Connection;
 const redis = new Redis();
@@ -26,22 +26,22 @@ beforeAll(async () => {
     password,
     confirmed: true,
   }).save();
-  userId = user.id
+  userId = user.id;
 });
 
 afterAll(async () => {
   conn.close();
 });
 
-describe("forgot password", () => {
-  test("make sure it works", async () => {
+describe('forgot password', () => {
+  test('make sure it works', async () => {
     const client = new TestClient(process.env.TEST_HOST as string);
 
     // lock account
     // await forgotPasswordLockAccount(userId, redis);
-    const url = await createForgotPasswordLink("", userId, redis);
+    const url = await createForgotPasswordLink('', userId, redis);
 
-    const parts = url.split("/");
+    const parts = url.split('/');
     const key = parts[parts.length - 1];
 
     // make sure you can't login to locked account
@@ -57,15 +57,15 @@ describe("forgot password", () => {
     // });
 
     // try changing to a password that's too short
-    expect(await client.forgotPasswordChange("a", key)).toEqual({
+    expect(await client.forgotPasswordChange('a', key)).toEqual({
       data: {
         forgotPasswordChange: [
           {
-            path: "newPassword",
+            path: 'newPassword',
             message: passwordNotLongEnough,
-          }
-        ]
-      }
+          },
+        ],
+      },
     });
 
     const response = await client.forgotPasswordChange(newPassword, key);
@@ -79,19 +79,19 @@ describe("forgot password", () => {
     expect(response2.data).toEqual({
       forgotPasswordChange: [
         {
-          path: "newPassword",
+          path: 'newPassword',
           message: expiredKeyError,
-        }
-      ]
+        },
+      ],
     });
 
-    const response3 = await client.login(email, newPassword)
+    const response3 = await client.login(email, newPassword);
 
     expect(response3.data).toEqual({
       login: {
         errors: null,
-        sessionId: response3.data.login.sessionId
-      }
+        sessionId: response3.data.login.sessionId,
+      },
     });
   });
 });

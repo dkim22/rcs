@@ -1,1 +1,1 @@
-export const SID_KEY = "abb-sid";
+export const SID_KEY = 'abb-sid';

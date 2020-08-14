@@ -1,1 +1,1 @@
-export const duplicateEmail = "already taken";
+export const duplicateEmail = 'already taken';

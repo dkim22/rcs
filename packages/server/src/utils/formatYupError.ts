@@ -1,4 +1,4 @@
-import { ValidationError } from "yup";
+import { ValidationError } from 'yup';
 
 export const formatYupError = (err: ValidationError) => {
   const errors: { path: string; message: string }[] = [];

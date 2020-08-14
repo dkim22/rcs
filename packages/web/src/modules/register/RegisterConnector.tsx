@@ -1,8 +1,8 @@
-import * as React from "react";
-import { RegisterController } from "@abb/controller";
-import { RouteComponentProps } from "react-router-dom";
+import * as React from 'react';
+import { RegisterController } from '@abb/controller';
+import { RouteComponentProps } from 'react-router-dom';
 
-import { RegisterView } from "./ui/RegisterView";
+import { RegisterView } from './ui/RegisterView';
 
 // container => view
 // 보통은 이런 방식으로 패턴을 만들지만 react, react-native에서 공용으로 사용할 로직들을 container에 넣을 것임
@@ -13,8 +13,10 @@ import { RegisterView } from "./ui/RegisterView";
 
 export class RegisterConnector extends React.PureComponent<RouteComponentProps<{}>> {
   onFinish = () => {
-    this.props.history.push("/m/confirm-email", { message: "check your email to confirm your account" });
-  }
+    this.props.history.push('/m/confirm-email', {
+      message: 'check your email to confirm your account',
+    });
+  };
 
   render() {
     return (

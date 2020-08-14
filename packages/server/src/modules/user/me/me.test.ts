@@ -1,9 +1,9 @@
-import { Connection } from "typeorm";
-import * as faker from "faker";
+import { Connection } from 'typeorm';
+import * as faker from 'faker';
 
-import { User } from "../../../entity/User";
-import { TestClient } from "../../../utils/TestClient";
-import { createTestConn } from "../../../testUtils/createTestConn";
+import { User } from '../../../entity/User';
+import { TestClient } from '../../../utils/TestClient';
+import { createTestConn } from '../../../testUtils/createTestConn';
 
 let userId: string;
 let conn: Connection;
@@ -25,14 +25,14 @@ afterAll(async () => {
   conn.close();
 });
 
-describe("me", () => {
-  test("return null if no cookie", async () => {
+describe('me', () => {
+  test('return null if no cookie', async () => {
     const client = new TestClient(process.env.TEST_HOST as string);
     const response = await client.me();
     expect(response.data.me).toBeNull();
   });
 
-  test("get current user", async () => {
+  test('get current user', async () => {
     const client = new TestClient(process.env.TEST_HOST as string);
     await client.login(email, password);
     const response = await client.me();
@@ -40,7 +40,7 @@ describe("me", () => {
       me: {
         id: userId,
         email,
-      }
+      },
     });
   });
 });

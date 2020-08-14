@@ -1,11 +1,9 @@
-import { Redis } from "ioredis";
-import { userLoader } from "../loaders/UserLoader";
+import { Redis } from 'ioredis';
+import { userLoader } from '../loaders/UserLoader';
 
-export interface Session extends Express.Session{
+export interface Session extends Express.Session {
   userId?: string;
 }
-
-
 
 export interface Context {
   redis: Redis;
@@ -15,19 +13,14 @@ export interface Context {
   userLoader: ReturnType<typeof userLoader>;
 }
 
-export type Resolver = (
-  parent: any,
-  args: any,
-  context: Context,
-  info: any
-) => any;
+export type Resolver = (parent: any, args: any, context: Context, info: any) => any;
 
 export type GraphQLMiddlewareFunc = (
   resolver: Resolver,
   parent: any,
   args: any,
   context: Context,
-  info: any
+  info: any,
 ) => any;
 
 export interface ResolverMap {

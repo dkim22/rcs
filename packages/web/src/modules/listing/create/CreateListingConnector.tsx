@@ -1,12 +1,12 @@
-import * as React from "react";
-import { Form, Button } from "antd";
-import { Formik, FormikHelpers } from "formik";
-import { withCreateListing, WithCreateListing } from "@abb/controller";
-import ImageFile from "react-dropzone";
+import * as React from 'react';
+import { Form, Button } from 'antd';
+import { Formik, FormikHelpers } from 'formik';
+import { withCreateListing, WithCreateListing } from '@abb/controller';
+import ImageFile from 'react-dropzone';
 
-import { Page1 } from "./ui/Page1";
-import { Page2 } from "./ui/Page2";
-import { Page3 } from "./ui/Page3";
+import { Page1 } from './ui/Page1';
+import { Page2 } from './ui/Page2';
+import { Page3 } from './ui/Page3';
 
 interface FormValues {
   picture: typeof ImageFile | null;
@@ -29,31 +29,31 @@ const pages = [<Page1 />, <Page2 />, <Page3 />];
 
 class C extends React.PureComponent<{} & WithCreateListing, State> {
   state = {
-    page: 0
-  }
+    page: 0,
+  };
 
   submit = async (values: FormValues, { setSubmitting }: FormikHelpers<FormValues>) => {
     await this.props.createListing(values);
     setSubmitting(false);
-  }
+  };
 
-  nextPage = () => this.setState(state => ({ page: state.page + 1 }));
+  nextPage = () => this.setState((state) => ({ page: state.page + 1 }));
 
   render() {
     return (
-      <div style={{ margin: "0 auto", maxWidth: 400 }}>
+      <div style={{ margin: '0 auto', maxWidth: 400 }}>
         <Formik<FormValues>
           initialValues={{
             picture: null,
-            name: "",
-            category: "",
-            description: "",
+            name: '',
+            category: '',
+            description: '',
             price: 0,
             beds: 0,
             guests: 0,
             latitude: 0,
             longitude: 0,
-            amenities: []
+            amenities: [],
           }}
           onSubmit={this.submit}
         >
@@ -66,26 +66,26 @@ class C extends React.PureComponent<{} & WithCreateListing, State> {
               {pages[this.state.page]}
               <Form.Item>
                 <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                {this.state.page === pages.length - 1 ?
-                  <div>
+                  {this.state.page === pages.length - 1 ? (
+                    <div>
+                      <Button
+                        type="primary"
+                        htmlType="submit"
+                        className="abb-create-listing__submit-button"
+                        disabled={props.isSubmitting}
+                      >
+                        Create listing
+                      </Button>
+                    </div>
+                  ) : (
                     <Button
                       type="primary"
-                      htmlType="submit" 
-                      className="abb-create-listing__submit-button"
-                      disabled={props.isSubmitting}
+                      className="abb-create-listing__button"
+                      onClick={this.nextPage}
                     >
-                      Create listing
+                      Next page
                     </Button>
-                  </div>
-                  :
-                  <Button
-                    type="primary"
-                    className="abb-create-listing__button"
-                    onClick={this.nextPage}
-                  >
-                    Next page
-                  </Button>
-                }
+                  )}
                 </div>
               </Form.Item>
             </Form>

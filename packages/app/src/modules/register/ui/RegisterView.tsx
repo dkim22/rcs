@@ -1,9 +1,9 @@
-import * as React from "react";
-import { withFormik, FormikErrors, FormikProps, Field } from "formik";
-import { validUserSchema } from "@abb/common";
-import { View, Text } from "react-native";
-import { Button, Card } from "react-native-elements";
-import { InputField } from "../../shared/inputField";
+import * as React from 'react';
+import { withFormik, FormikErrors, FormikProps, Field } from 'formik';
+import { validUserSchema } from '@abb/common';
+import { View, Text } from 'react-native';
+import { Button, Card } from 'react-native-elements';
+import { InputField } from '../../shared/inputField';
 
 interface FormValues {
   email: string;
@@ -18,13 +18,13 @@ class C extends React.PureComponent<FormikProps<FormValues> & Props> {
   render() {
     const { handleSubmit } = this.props;
     return (
-      <View style={{ flex: 1, display: "flex", justifyContent: "center" }}>
+      <View style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
         <Card>
           <Text style={{ fontSize: 28, marginBottom: 10 }}>Register</Text>
           <Field
             name="email"
             placeholder="Email"
-            containerStyle={{ width: "100%" }}
+            containerStyle={{ width: '100%' }}
             autoCapitalize="none"
             component={InputField}
           />
@@ -32,7 +32,7 @@ class C extends React.PureComponent<FormikProps<FormValues> & Props> {
             name="password"
             secureTextEntry={true}
             placeholder="Password"
-            containerStyle={{ width: "100%" }}
+            containerStyle={{ width: '100%' }}
             autoCapitalize="none"
             component={InputField}
           />
@@ -45,7 +45,7 @@ class C extends React.PureComponent<FormikProps<FormValues> & Props> {
 
 export const RegisterView = withFormik<Props, FormValues>({
   validationSchema: validUserSchema,
-  mapPropsToValues: () => ({ email: "", password: "" }),
+  mapPropsToValues: () => ({ email: '', password: '' }),
   handleSubmit: async (values, { props, setErrors }) => {
     const errors = await props.submit(values);
     if (errors) {

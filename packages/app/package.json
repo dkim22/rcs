@@ -35,9 +35,6 @@
     "@types/react-router-native": "^5.1.0",
     "babel-preset-expo": "~8.1.0",
     "expo-yarn-workspaces": "^1.2.1",
-    "tslint": "^6.1.2",
-    "tslint-config-prettier": "^1.18.0",
-    "tslint-react": "^5.0.0",
     "typescript": "~3.8.3"
   },
   "private": true

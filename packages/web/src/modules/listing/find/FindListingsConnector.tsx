@@ -1,6 +1,6 @@
-import * as React from "react";
+import * as React from 'react';
 import { Card } from 'antd';
-import { withFindListings, WithFindListings } from "@abb/controller";
+import { withFindListings, WithFindListings } from '@abb/controller';
 
 const { Meta } = Card;
 
@@ -11,7 +11,7 @@ class C extends React.PureComponent<WithFindListings> {
     return (
       <div>
         {loading && <div>...loading</div>}
-        {listings.map(l => (
+        {listings.map((l) => (
           <Card
             key={`${l.id}-card`}
             hoverable={true}

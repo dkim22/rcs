@@ -1,32 +1,32 @@
-import "reflect-metadata";
-import "dotenv/config";
-import { GraphQLServer } from "graphql-yoga";
-import * as session from "express-session";
-import * as connectRedis from "connect-redis";
-import * as rateLimit from "express-rate-limit";
-import * as RateLimitRedisStore from "rate-limit-redis";
-import * as passport from "passport";
-import { Strategy } from "passport-twitter";
-import { Connection } from "typeorm";
-import { applyMiddleware } from "graphql-middleware";
-import * as express from "express";
+import 'reflect-metadata';
+import 'dotenv/config';
+import { GraphQLServer } from 'graphql-yoga';
+import * as session from 'express-session';
+import * as connectRedis from 'connect-redis';
+import * as rateLimit from 'express-rate-limit';
+import * as RateLimitRedisStore from 'rate-limit-redis';
+import * as passport from 'passport';
+import { Strategy } from 'passport-twitter';
+import { Connection } from 'typeorm';
+import { applyMiddleware } from 'graphql-middleware';
+import * as express from 'express';
 
-import { createTypeormConn } from "./utils/createTypeormConn";
-import { redis } from "./redis";
-import { confirmEmail } from "./routes/confirmEmail";
-import { genSchema } from "./utils/genSchema";
-import { redisSessionPrefix } from "./constants";
-import { User } from "./entity/User";
-import { createTestConn } from "./testUtils/createTestConn";
-import { middleware } from "./middleware";
-import { userLoader } from "./loaders/UserLoader";
+import { createTypeormConn } from './utils/createTypeormConn';
+import { redis } from './redis';
+import { confirmEmail } from './routes/confirmEmail';
+import { genSchema } from './utils/genSchema';
+import { redisSessionPrefix } from './constants';
+import { User } from './entity/User';
+import { createTestConn } from './testUtils/createTestConn';
+import { middleware } from './middleware';
+import { userLoader } from './loaders/UserLoader';
 // import { middlewareShield } from "./shield";
 
 const RedisStore = connectRedis(session);
 
 export const startServer = async () => {
   // TODO: 테스트 할 때 레디스 초기화 필요
-  if (process.env.NODE_ENV === "test") {
+  if (process.env.NODE_ENV === 'test') {
     redis.flushall();
   }
 
@@ -37,7 +37,7 @@ export const startServer = async () => {
     schema,
     context: ({ request }) => ({
       redis,
-      url: request.protocol + "://" + request.get("host"),
+      url: request.protocol + '://' + request.get('host'),
       session: request.session,
       req: request,
       userLoader: userLoader(),
@@ -51,7 +51,7 @@ export const startServer = async () => {
       }),
       windowMs: 15 * 60 * 1000, // 15 minutes
       max: 100, // limit each IP to 100 requests per windowMs
-    })
+    }),
   );
 
   server.express.use(
@@ -60,33 +60,31 @@ export const startServer = async () => {
         client: redis as any,
         prefix: redisSessionPrefix,
       }),
-      name: "qid",
+      name: 'qid',
       secret: process.env.SESSION_SECRET as string,
       resave: false,
       saveUninitialized: false,
       cookie: {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        maxAge: 1000 * 60 * 60 * 24 * 7 // 7 days
-      }
-    })
+        secure: process.env.NODE_ENV === 'production',
+        maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
+      },
+    }),
   );
 
-  server.express.use("/images", express.static("images"));
+  server.express.use('/images', express.static('images'));
 
   const cors = {
     credentials: true,
-    origin: process.env.NODE_ENV === "test"
-      ? "*"
-      : process.env.FRONTEND_HOST as string
+    origin: process.env.NODE_ENV === 'test' ? '*' : (process.env.FRONTEND_HOST as string),
   };
 
-  server.express.get("/confirm/:id", confirmEmail);
+  server.express.get('/confirm/:id', confirmEmail);
 
   let connection: Connection;
-  if (process.env.NODE_ENV === "test") {
+  if (process.env.NODE_ENV === 'test') {
     connection = await createTestConn(true);
-  } else if (process.env.NODE_ENV === "production") {
+  } else if (process.env.NODE_ENV === 'production') {
     connection = await createTypeormConn();
     await connection.runMigrations();
   } else {
@@ -98,7 +96,7 @@ export const startServer = async () => {
       {
         consumerKey: process.env.TWITTER_CONSUMER_KEY as string,
         consumerSecret: process.env.TWITTER_CONSUMER_SECRET as string,
-        callbackURL: "http://localhost:4000/auth/twitter/callback",
+        callbackURL: 'http://localhost:4000/auth/twitter/callback',
         includeEmail: true,
       },
       async (_, __, profile, cb) => {
@@ -106,14 +104,14 @@ export const startServer = async () => {
 
         const query = connection
           .getRepository(User)
-          .createQueryBuilder("user")
-          .where("user.twitterId = :id", { id });
+          .createQueryBuilder('user')
+          .where('user.twitterId = :id', { id });
 
         let email!: string | null;
 
         if (emails) {
           email = emails[0].value;
-          query.orWhere("user.email = :email", { email })
+          query.orWhere('user.email = :email', { email });
         }
 
         let user = await query.getOne();
@@ -122,7 +120,7 @@ export const startServer = async () => {
         if (!user) {
           user = await User.create({
             twitterId: id,
-            email
+            email,
           }).save();
         } else if (user.twitterId) {
           // merge account
@@ -135,30 +133,30 @@ export const startServer = async () => {
         }
 
         return cb(null, { id: user.id });
-      }
-    )
+      },
+    ),
   );
 
   server.express.use(passport.initialize());
 
-  server.express.get("/auth/twitter", passport.authenticate("twitter"));
+  server.express.get('/auth/twitter', passport.authenticate('twitter'));
 
   server.express.get(
-    "/auth/twitter/callback",
-    passport.authenticate("twitter", { session: false }),
+    '/auth/twitter/callback',
+    passport.authenticate('twitter', { session: false }),
     (req, res) => {
       // Successful authentication, redirect home.
       (req.session as any).userId = (req.user as any).id;
       // TODO: redirect to frontend
-      res.redirect("/");
-    }
+      res.redirect('/');
+    },
   );
 
-  const port = process.env.PORT || 4000
-  console.log(port)
+  const port = process.env.PORT || 4000;
+  console.log(port);
   const app = await server.start({
     cors,
-    port: process.env.NODE_ENV === "test" ? 0 : port,
+    port: process.env.NODE_ENV === 'test' ? 0 : port,
   });
   console.log(`Server is running on localhost${port}`);
 

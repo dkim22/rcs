@@ -1,17 +1,24 @@
-import * as React from "react";
-import { gql } from "@apollo/client";
-import { graphql, ChildMutateProps } from "@apollo/react-hoc";
-import { sendForgotPasswordEmailMutation, sendForgotPasswordEmailMutationVariables } from "../../schemaTypes";
+import * as React from 'react';
+import { gql } from '@apollo/client';
+import { graphql, ChildMutateProps } from '@apollo/react-hoc';
+import {
+  sendForgotPasswordEmailMutation,
+  sendForgotPasswordEmailMutationVariables,
+} from '../../schemaTypes';
 
 interface Props {
-  children: (data: { submit: (values: sendForgotPasswordEmailMutationVariables) => Promise<null> }) => JSX.Element | null;
+  children: (data: {
+    submit: (values: sendForgotPasswordEmailMutationVariables) => Promise<null>;
+  }) => JSX.Element | null;
 }
 
-class C extends React.PureComponent<ChildMutateProps<Props, sendForgotPasswordEmailMutation, sendForgotPasswordEmailMutationVariables>> {
+class C extends React.PureComponent<
+  ChildMutateProps<Props, sendForgotPasswordEmailMutation, sendForgotPasswordEmailMutationVariables>
+> {
   submit = async (values: sendForgotPasswordEmailMutationVariables) => {
     console.log(values);
     const response = await this.props.mutate({
-      variables: values
+      variables: values,
     });
     console.log('response : ', response);
 
@@ -19,9 +26,7 @@ class C extends React.PureComponent<ChildMutateProps<Props, sendForgotPasswordEm
   };
 
   render() {
-    return (
-      this.props.children({ submit: this.submit })
-    )
+    return this.props.children({ submit: this.submit });
   }
 }
 
@@ -31,4 +36,8 @@ const forgotPasswordMutation = gql`
   }
 `;
 
-export const ForgotPasswordController = graphql<Props, sendForgotPasswordEmailMutation, sendForgotPasswordEmailMutationVariables>(forgotPasswordMutation)(C as any);
+export const ForgotPasswordController = graphql<
+  Props,
+  sendForgotPasswordEmailMutation,
+  sendForgotPasswordEmailMutationVariables
+>(forgotPasswordMutation)(C as any);
