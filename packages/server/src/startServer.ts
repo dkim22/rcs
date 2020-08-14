@@ -19,6 +19,7 @@ import { redisSessionPrefix } from "./constants";
 import { User } from "./entity/User";
 import { createTestConn } from "./testUtils/createTestConn";
 import { middleware } from "./middleware";
+import { userLoader } from "./loaders/UserLoader";
 // import { middlewareShield } from "./shield";
 
 const RedisStore = connectRedis(session);
@@ -38,7 +39,8 @@ export const startServer = async () => {
       redis,
       url: request.protocol + "://" + request.get("host"),
       session: request.session,
-      req: request
+      req: request,
+      userLoader: userLoader(),
     }),
   });
 

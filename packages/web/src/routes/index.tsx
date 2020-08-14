@@ -29,7 +29,7 @@ export const Routes = () => (
         path="/m"
         component={TextPage}
       />
-      <AuthRoute path="/listings" component={FindListingsConnector} />
+      <Route path="/listings" component={FindListingsConnector} />
       <AuthRoute path="/create-listing" component={CreateListingConnector} />
     </Switch>
   </BrowserRouter>
