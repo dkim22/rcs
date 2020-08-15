@@ -7,6 +7,7 @@ import ImageFile from 'react-dropzone';
 import { Page1 } from './ui/Page1';
 import { Page2 } from './ui/Page2';
 import { Page3 } from './ui/Page3';
+import { Link } from 'react-router-dom';
 
 interface FormValues {
   picture: typeof ImageFile | null;
@@ -63,6 +64,7 @@ class C extends React.PureComponent<{} & WithCreateListing, State> {
               className="abb-create-listing__form"
               onFinish={props.handleSubmit as any}
             >
+              <Link to="/logout">Logout</Link>
               {pages[this.state.page]}
               <Form.Item>
                 <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
