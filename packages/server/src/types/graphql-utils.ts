@@ -1,4 +1,5 @@
 import { Redis } from 'ioredis';
+import * as express from 'express';
 import { userLoader } from '../loaders/UserLoader';
 
 export interface Session extends Express.Session {
@@ -10,6 +11,7 @@ export interface Context {
   url: string;
   session: Session;
   req: Express.Request;
+  res: express.Response;
   userLoader: ReturnType<typeof userLoader>;
 }
 

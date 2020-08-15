@@ -12,6 +12,7 @@ interface FormValues {
 
 interface Props {
   submit: (values: FormValues) => Promise<FormikErrors<FormValues> | null>;
+  onFinish: () => void;
 }
 
 class C extends React.PureComponent<FormikProps<FormValues> & Props> {
@@ -52,7 +53,9 @@ export const LoginView = withFormik<Props, FormValues>({
   handleSubmit: async (values, { props, setErrors }) => {
     const errors = await props.submit(values);
     if (errors) {
-      setErrors(errors);
+      return setErrors(errors);
     }
+
+    props.onFinish();
   },
 })(C);
