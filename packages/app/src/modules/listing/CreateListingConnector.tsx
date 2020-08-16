@@ -5,6 +5,7 @@ import { RouteComponentProps } from 'react-router-native';
 import { Text, View, ScrollView } from 'react-native';
 import { InputField } from '../shared/inputField';
 import { Button } from 'react-native-elements';
+import { CheckboxGroupField } from '../shared/CheckboxGroupField';
 
 interface FormValues {
   picture: null;
@@ -57,14 +58,24 @@ class C extends React.PureComponent<RouteComponentProps<{}> & WithCreateListing>
                 autoCapitalize="none"
                 component={InputField}
               />
-              <Field name="category" placeholder="Category" component={InputField} />
-              <Field name="description" placeholder="Description" component={InputField} />
+              <Field
+                name="category"
+                placeholder="Category"
+                autoCapitalize="none"
+                component={InputField}
+              />
+              <Field
+                name="description"
+                placeholder="Description"
+                autoCapitalize="none"
+                component={InputField}
+              />
               <Field
                 label="Price"
                 name="price"
                 placeholder="Price"
-                useNumberComponent={true}
                 component={InputField}
+                keyboardType="numeric"
               />
               <Field
                 label="Beds"
@@ -72,6 +83,7 @@ class C extends React.PureComponent<RouteComponentProps<{}> & WithCreateListing>
                 placeholder="Beds"
                 useNumberComponent={true}
                 component={InputField}
+                keyboardType="numeric"
               />
               <Field
                 label="Guests"
@@ -79,6 +91,7 @@ class C extends React.PureComponent<RouteComponentProps<{}> & WithCreateListing>
                 placeholder="Guests"
                 useNumberComponent={true}
                 component={InputField}
+                keyboardType="numeric"
               />
               <Field
                 label="Latitude"
@@ -86,6 +99,7 @@ class C extends React.PureComponent<RouteComponentProps<{}> & WithCreateListing>
                 placeholder="Latitude"
                 useNumberComponent={true}
                 component={InputField}
+                keyboardType="numeric"
               />
               <Field
                 label="Longitude"
@@ -93,6 +107,12 @@ class C extends React.PureComponent<RouteComponentProps<{}> & WithCreateListing>
                 placeholder="Longitude"
                 useNumberComponent={true}
                 component={InputField}
+                keyboardType="numeric"
+              />
+              <Field
+                name="amenities"
+                options={['pool', 'basketball', 'soccer field', 'yard']}
+                component={CheckboxGroupField}
               />
               <Button onPress={props.handleSubmit as any} title="save listing" />
             </ScrollView>
