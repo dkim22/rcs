@@ -32,7 +32,7 @@ export const resolvers: ResolverMap = {
       // isAuthenticated(session);
 
       // upload my computer
-      const pictureUrl = await processUpload(picture);
+      const pictureUrl = picture ? await processUpload(picture) : null;
 
       await Listing.create({
         ...(data as Listing),
