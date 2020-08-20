@@ -13,16 +13,16 @@ class C extends React.PureComponent<WithFindListings> {
       <div>
         {loading && <div>...loading</div>}
         {listings.map((l) => (
-          <Link to={`/listing/${l.id}`} key={`${l.id}-card`}>
-            <Card
-              key={`${l.id}-card`}
-              hoverable={true}
-              style={{ width: 240 }}
-              cover={l.pictureUrl && <img alt="example" src={l.pictureUrl} />}
-            >
+          <Card
+            key={`${l.id}-card`}
+            hoverable={true}
+            style={{ width: 240 }}
+            cover={l.pictureUrl && <img alt="example" src={l.pictureUrl} />}
+          >
+            <Link to={`/listing/${l.id}`}>
               <Meta title={l.name} description={l.owner.email} />
-            </Card>
-          </Link>
+            </Link>
+          </Card>
         ))}
       </div>
     );
