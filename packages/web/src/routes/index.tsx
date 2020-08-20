@@ -10,6 +10,7 @@ import { ChangePasswordConnector } from '../modules/changePassword/ChangePasswor
 import { TextPage } from '../modules/TextPage';
 import { CreateListingConnector } from '../modules/listing/create/CreateListingConnector';
 import { FindListingsConnector } from '../modules/listing/find/FindListingsConnector';
+import { ViewListingConnector } from '../modules/listing/view/ViewListingConnector';
 import { TestSub } from '../modules/TestSub';
 
 export const Routes = () => (
@@ -23,6 +24,7 @@ export const Routes = () => (
       <Route path="/m" component={TextPage} />
       <Route path="/listings" component={FindListingsConnector} />
       <Route path="/test-sub" component={TestSub} />
+      <Route path="/listing/:listingId" component={ViewListingConnector} />
       <AuthRoute path="/create-listing" component={CreateListingConnector} />
     </Switch>
   </BrowserRouter>
