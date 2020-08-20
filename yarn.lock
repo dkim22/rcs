@@ -4428,6 +4428,14 @@ apollo-link-http@^1.5.5:
     apollo-link-http-common "^0.2.16"
     tslib "^1.9.3"
 
+apollo-link-ws@^1.0.20:
+  version "1.0.20"
+  resolved "https://registry.yarnpkg.com/apollo-link-ws/-/apollo-link-ws-1.0.20.tgz#dfad44121f8445c6d7b7f8101a1b24813ba008ed"
+  integrity sha512-mjSFPlQxmoLArpHBeUb2Xj+2HDYeTaJqFGOqQ+I8NVJxgL9lJe84PDWcPah/yMLv3rB7QgBDSuZ0xoRFBPlySw==
+  dependencies:
+    apollo-link "^1.2.14"
+    tslib "^1.9.3"
+
 apollo-link@^1.2.12, apollo-link@^1.2.14, apollo-link@^1.2.3:
   version "1.2.14"
   resolved "https://registry.yarnpkg.com/apollo-link/-/apollo-link-1.2.14.tgz#3feda4b47f9ebba7f4160bef8b977ba725b684d9"
@@ -9382,6 +9390,15 @@ graphql-playground-middleware-lambda@1.7.12:
   dependencies:
     graphql-playground-html "1.6.12"
 
+graphql-redis-subscriptions@^2.2.2:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/graphql-redis-subscriptions/-/graphql-redis-subscriptions-2.2.2.tgz#6d0dad6acac9ee99b78d9220620180a2ddeb1a25"
+  integrity sha512-DsnIZxt/TSRqHPJxllni8HRn6uR786CNnCis4M+AwGkgLWIFYXJVibSDSUBVOCJEcfkfCFr+xUixPrJUldfW0A==
+  dependencies:
+    iterall "^1.3.0"
+  optionalDependencies:
+    ioredis "^4.6.3"
+
 graphql-shield@^7.3.0:
   version "7.3.0"
   resolved "https://registry.yarnpkg.com/graphql-shield/-/graphql-shield-7.3.0.tgz#d43510a37623bcf6b722cfbad5c84c0d62185b8a"
@@ -10236,6 +10253,21 @@ ioredis@^4.16.2:
   version "4.16.3"
   resolved "https://registry.yarnpkg.com/ioredis/-/ioredis-4.16.3.tgz#6a6b85830206fd98353b7ff8536521f17943be53"
   integrity sha512-Ejvcs2yW19Vq8AipvbtfcX3Ig8XG9EAyFOvGbhI/Q1QoVOK9ZdgY092kdOyOWIYBnPHjfjMJhU9qhsnp0i0K1w==
+  dependencies:
+    cluster-key-slot "^1.1.0"
+    debug "^4.1.1"
+    denque "^1.1.0"
+    lodash.defaults "^4.2.0"
+    lodash.flatten "^4.4.0"
+    redis-commands "1.5.0"
+    redis-errors "^1.2.0"
+    redis-parser "^3.0.0"
+    standard-as-callback "^2.0.1"
+
+ioredis@^4.6.3:
+  version "4.17.3"
+  resolved "https://registry.yarnpkg.com/ioredis/-/ioredis-4.17.3.tgz#9938c60e4ca685f75326337177bdc2e73ae9c9dc"
+  integrity sha512-iRvq4BOYzNFkDnSyhx7cmJNOi1x/HWYe+A4VXHBu4qpwJaGT1Mp+D2bVGJntH9K/Z/GeOM/Nprb8gB3bmitz1Q==
   dependencies:
     cluster-key-slot "^1.1.0"
     debug "^4.1.1"
