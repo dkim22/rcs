@@ -11,6 +11,7 @@ import { TextPage } from '../modules/TextPage';
 import { CreateListingConnector } from '../modules/listing/create/CreateListingConnector';
 import { FindListingsConnector } from '../modules/listing/find/FindListingsConnector';
 import { ViewListingConnector } from '../modules/listing/view/ViewListingConnector';
+import { MessageConnector } from '../modules/listing/messages/MessageConnector';
 import { TestSub } from '../modules/TestSub';
 
 export const Routes = () => (
@@ -24,7 +25,8 @@ export const Routes = () => (
       <Route path="/m" component={TextPage} />
       <Route path="/listings" component={FindListingsConnector} />
       <Route path="/test-sub" component={TestSub} />
-      <Route path="/listing/:listingId" component={ViewListingConnector} />
+      <Route exact={true} path="/listing/:listingId" component={ViewListingConnector} />
+      <Route path="/listing/:listingId/chat" component={MessageConnector} />
       <AuthRoute path="/create-listing" component={CreateListingConnector} />
     </Switch>
   </BrowserRouter>
