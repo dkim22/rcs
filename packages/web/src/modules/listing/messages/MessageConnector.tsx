@@ -2,6 +2,8 @@ import React from 'react';
 import { ViewMessages } from '@abb/controller';
 import { RouteComponentProps } from 'react-router-dom';
 
+import { InputBar } from './InputBar';
+
 export class MessageConnector extends React.PureComponent<
   RouteComponentProps<{
     listingId: string;
@@ -24,6 +26,7 @@ export class MessageConnector extends React.PureComponent<
               {messages.map((m, i) => (
                 <div key={`${i}-lm`}>{m.text}</div>
               ))}
+              <InputBar listingId={listingId}></InputBar>
             </div>
           );
         }}
