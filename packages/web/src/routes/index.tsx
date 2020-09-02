@@ -12,6 +12,7 @@ import { CreateListingConnector } from '../modules/listing/create/CreateListingC
 import { FindListingsConnector } from '../modules/listing/find/FindListingsConnector';
 import { ViewListingConnector } from '../modules/listing/view/ViewListingConnector';
 import { MessageConnector } from '../modules/listing/messages/MessageConnector';
+import { EditListingConnector } from '../modules/listing/edit/EditListingConnector';
 import { TestSub } from '../modules/TestSub';
 
 export const Routes = () => (
@@ -27,6 +28,7 @@ export const Routes = () => (
       <Route path="/test-sub" component={TestSub} />
       <Route exact={true} path="/listing/:listingId" component={ViewListingConnector} />
       <Route path="/listing/:listingId/chat" component={MessageConnector} />
+      <Route path="/listing/:listingId/edit" component={EditListingConnector} />
       <AuthRoute path="/create-listing" component={CreateListingConnector} />
     </Switch>
   </BrowserRouter>

@@ -1,10 +1,15 @@
 import * as React from 'react';
 import { ViewListing } from '@abb/controller';
-import { RouteComponentProps, Link } from 'react-router-dom';
+import { RouteComponentProps } from 'react-router-dom';
+import { ListingForm, defaultListingFormValues } from '../shared/ListingForm';
 
-export class ViewListingConnector extends React.PureComponent<
+export class EditListingConnector extends React.PureComponent<
   RouteComponentProps<{ listingId: string }>
 > {
+  submit = async (values: any) => {
+    console.log(values);
+  };
+
   render() {
     const {
       match: {
@@ -18,15 +23,10 @@ export class ViewListingConnector extends React.PureComponent<
             return <div>...loading</div>;
           }
           return (
-            <div>
-              <div>{data.listing.name}</div>
-              <div>
-                <Link to={`/listing/${listingId}/chat`}>chat</Link>
-              </div>
-              <div>
-                <Link to={`/listing/${listingId}/edit`}>edit</Link>
-              </div>
-            </div>
+            <ListingForm
+              initialValues={{ ...defaultListingFormValues, ...data.listing }}
+              submit={this.submit}
+            />
           );
         }}
       </ViewListing>
