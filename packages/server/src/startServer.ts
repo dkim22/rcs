@@ -16,11 +16,12 @@ import { createTypeormConn } from './utils/createTypeormConn';
 import { redis } from './redis';
 import { confirmEmail } from './routes/confirmEmail';
 import { genSchema } from './utils/genSchema';
-import { redisSessionPrefix } from './constants';
+import { redisSessionPrefix, listingCacheKey } from './constants';
 import { User } from './entity/User';
 import { createTestConn } from './testUtils/createTestConn';
 import { middleware } from './middleware';
 import { userLoader } from './loaders/UserLoader';
+import { Listing } from './entity/Listing';
 // import { middlewareShield } from "./shield";
 
 const RedisStore = connectRedis(session);
@@ -101,6 +102,14 @@ export const startServer = async () => {
   } else {
     connection = await createTypeormConn();
   }
+
+  // clear cache
+  await redis.del(listingCacheKey);
+  // fill cache
+  const listings = await Listing.find();
+  const listingStrings = listings.map((x) => JSON.stringify(x));
+  await redis.lpush(listingCacheKey, ...listingStrings);
+  // console.log(await redis.lrange(listingCacheKey, 0, -1));
 
   passport.use(
     new Strategy(
