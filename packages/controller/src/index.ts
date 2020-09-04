@@ -8,6 +8,7 @@ export * from './modules/FindListings';
 export * from './modules/ViewListing';
 export * from './modules/ViewMessages';
 export * from './modules/CreateMessage';
+export * from './modules/UpdateListing';
 export * from './schemaTypes';
 export * from './types/NormalizedErrorMap';
 export * from './modules/auth/AuthRoute';

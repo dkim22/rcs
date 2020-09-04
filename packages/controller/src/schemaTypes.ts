@@ -200,6 +200,24 @@ export interface RegisterMutationVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL mutation operation: UpdateListingMutation
+// ====================================================
+
+export interface UpdateListingMutation {
+  updateListing: boolean;
+}
+
+export interface UpdateListingMutationVariables {
+  listingId: string;
+  input: UpdateListingInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL query operation: ViewListingQuery
 // ====================================================
 
@@ -214,6 +232,13 @@ export interface ViewListingQuery_viewListing {
   id: string;
   name: string;
   category: string;
+  description: string;
+  price: number;
+  beds: number;
+  guests: number;
+  longitude: number;
+  latitude: number;
+  amenities: string[];
   pictureUrl: string;
   owner: ViewListingQuery_viewListing_owner;
 }
@@ -261,6 +286,36 @@ export interface ViewMessagesQueryVariables {
 // @generated
 // This file was automatically generated and should not be edited.
 
+// ====================================================
+// GraphQL subscription operation: NewMessageSubscription
+// ====================================================
+
+export interface NewMessageSubscription_newMessage_user {
+  __typename: "User";
+  id: string;
+  email: string;
+}
+
+export interface NewMessageSubscription_newMessage {
+  __typename: "Message";
+  text: string;
+  user: NewMessageSubscription_newMessage_user;
+  listingId: string;
+}
+
+export interface NewMessageSubscription {
+  newMessage: NewMessageSubscription_newMessage;
+}
+
+export interface NewMessageSubscriptionVariables {
+  listingId: string;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
 //==============================================================
 // START Enums and Input Objects
 //==============================================================
@@ -268,6 +323,20 @@ export interface ViewMessagesQueryVariables {
 export interface MessageInput {
   text: string;
   listingId: string;
+}
+
+export interface UpdateListingInput {
+  name?: string | null;
+  picture?: any | null;
+  pictureUrl?: string | null;
+  category?: string | null;
+  description?: string | null;
+  price?: number | null;
+  beds?: number | null;
+  guests?: number | null;
+  latitude?: number | null;
+  longitude?: number | null;
+  amenities?: string[] | null;
 }
 
 //==============================================================

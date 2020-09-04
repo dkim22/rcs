@@ -2,6 +2,7 @@ import * as React from 'react';
 import { FieldProps } from 'formik';
 import { useDropzone } from 'react-dropzone';
 import { useState } from 'react';
+import { Button } from 'antd';
 
 const thumbsContainer = {
   display: 'flex',
@@ -35,8 +36,8 @@ const img = {
 };
 
 export const DropzoneField: React.SFC<FieldProps<any>> = ({
-  field: { name },
-  form: { setFieldValue },
+  field: { name, value },
+  form: { setFieldValue, values, setValues },
 }) => {
   const [files, setFiles] = useState([]);
   const { getRootProps, getInputProps } = useDropzone({
@@ -53,6 +54,8 @@ export const DropzoneField: React.SFC<FieldProps<any>> = ({
     },
   });
 
+  const pUrl = (value ? value.preview : null) || values.pictureUrl;
+
   const thumbs = files.map((file: any) => (
     <div style={thumb as any} key={file.name}>
       <div style={thumbInner}>
@@ -61,13 +64,34 @@ export const DropzoneField: React.SFC<FieldProps<any>> = ({
     </div>
   ));
 
+  // TODO: Check updatelisting with picture preview
   return (
-    <section className="container">
-      <div {...getRootProps({ className: 'dropzone' })}>
-        <input {...getInputProps()} />
-        <p>Drag 'n' drop some files here, or click to select files</p>
-      </div>
-      <aside style={thumbsContainer as any}>{thumbs}</aside>
-    </section>
+    <>
+      <section className="container">
+        <div {...getRootProps({ className: 'dropzone' })}>
+          <input {...getInputProps()} />
+          <p>Drag 'n' drop some files here, or click to select files</p>
+        </div>
+        <aside style={thumbsContainer as any}>{thumbs}</aside>
+        {pUrl && (
+          <div style={thumb as any}>
+            <div style={thumbInner}>
+              <img src={pUrl} style={img} alt="preview" />
+            </div>
+          </div>
+        )}
+      </section>
+      <Button
+        onClick={() =>
+          setValues({
+            ...values,
+            pictureUrl: null,
+            picture: null,
+          })
+        }
+      >
+        remove
+      </Button>
+    </>
   );
 };
