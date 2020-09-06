@@ -1,0 +1,9 @@
+input SearchListingsInput {
+  guests: Int
+  beds: Int
+  name: String
+}
+
+type Query {
+  searchListings(input: SearchListingsInput, offset: Int!, limit: Int!): [Listing!]!
+}
