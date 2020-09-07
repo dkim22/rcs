@@ -51,7 +51,6 @@ export class FindListingsConnector extends React.PureComponent<{}, State> {
               ListFooterComponent={() =>
                 hasMoreListings ? <Button title="load more" onPress={loadMore} /> : <View />
               }
-              style={{ marginBottom: 20 }}
               data={listings}
               keyExtractor={({ id }) => `${id}-flc`}
               renderItem={({ item: l }) => (
