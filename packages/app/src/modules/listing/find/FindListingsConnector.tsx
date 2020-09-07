@@ -1,7 +1,7 @@
 import React from 'react';
 import { SearchListings } from '@abb/controller';
 import { Card, Slider } from 'react-native-elements';
-import { FlatList, Text, ScrollView, TextInput, SafeAreaView, View } from 'react-native';
+import { FlatList, Text, TextInput, SafeAreaView, View, Button } from 'react-native';
 
 interface State {
   name: string;
@@ -45,14 +45,13 @@ export class FindListingsConnector extends React.PureComponent<{}, State> {
           />
           <Text>Beds: {beds}</Text>
         </View>
-        <SearchListings variables={{ input: { name, guests, beds }, limit: 5, offset: 0 }}>
-          {({ listings }) => (
+        <SearchListings variables={{ input: { name }, limit: 5, offset: 0 }}>
+          {({ listings, hasMoreListings, loadMore }) => (
             <FlatList
-              ListFooterComponent={() => (
-                <View>
-                  <Text>Footer</Text>
-                </View>
-              )}
+              ListFooterComponent={() =>
+                hasMoreListings ? <Button title="load more" onPress={loadMore} /> : <View />
+              }
+              style={{ marginBottom: 20 }}
               data={listings}
               keyExtractor={({ id }) => `${id}-flc`}
               renderItem={({ item: l }) => (
