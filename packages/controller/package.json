@@ -8,10 +8,15 @@
     "build": "rimraf ./dist && tsc",
     "schema:download": "apollo schema:download --endpoint=http://localhost:4000",
     "codegen:generate": "apollo codegen:generate --queries=./src/**/*.tsx --localSchemaFile=./schema.json --target=typescript --outputFlat=./src/schemaTypes.ts",
+    "graphql-codegen:": "graphql-codegen",
     "gen:types": "yarn schema:download && yarn codegen:generate",
     "refresh:types": "yarn gen:types && yarn build"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^1.19.3",
+    "@graphql-codegen/typescript": "^1.18.1",
+    "@graphql-codegen/typescript-operations": "^1.17.12",
+    "@graphql-codegen/typescript-react-apollo": "^2.2.1",
     "@types/node": "^13.13.4",
     "@types/react": "^16.9.34",
     "@types/react-dom": "^16.9.7",
@@ -24,6 +29,7 @@
     "@apollo/client": "^3.0.0-beta.44",
     "@apollo/react-components": "^4.0.0-beta.1",
     "@apollo/react-hoc": "^4.0.0-beta.1",
+    "@apollo/react-hooks": "^4.0.0-beta.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router": "^5.2.0"
